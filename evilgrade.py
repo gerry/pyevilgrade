@@ -171,13 +171,10 @@ class EvilGrade(object):
                     else:
                         log('Unknown request type (%s) for %s' % (req['type'], module.name))
                         continue
-                    # What's the difference between bin/text?
-                    if int(req['bin']) == 1:
-                        data = self.get_agent(file_name)
-                    else:
-                        data = self.get_agent(file_name)
-                        if int(req['parse']) == 1:
-                            data = self.parse_data(data, module)
+
+                    data = self.get_agent(file_name)
+                    if int(req['parse']) == 1:
+                        data = self.parse_data(data, module)
                 flow.response = http.HTTPResponse.make(status, data, headers)
                 module.options['brequest'] = {'val': flow.request.path + str(1)}
 
